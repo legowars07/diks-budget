@@ -42,3 +42,6 @@ jobs:
 
       - name: Run tests
         run: pnpm run test
+
+      - name: List files in workspace
+        run: ls -l
