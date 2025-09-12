@@ -1,8 +1,8 @@
-import { BudgetBusiness } from '../business/BudgetBusiness.js';
+import { BudgetBusiness } from '../business/BudgetBusiness.ts';
 import { budgets } from '../business/seed.js';
-import type { Transaction } from '../business/types/Transaction.js';
-import { ValidationError, NotFoundError } from '../business/errors.js';
-import { ERROR_MESSAGES } from '../business/errorMessages.js';
+import type { Transaction } from '../business/types/Transaction.ts';
+import { ValidationError, NotFoundError } from '../business/errors.ts';
+import { ERROR_MESSAGES } from '../business/errorMessages.ts';
 
 export class BudgetService {
   constructor(private readonly business: BudgetBusiness) {}

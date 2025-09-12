@@ -1,4 +1,4 @@
-import { BudgetService } from '../services/BudgetService.js';
+import { BudgetService } from '../services/BudgetService.ts';
 import type { Request, Response, NextFunction } from 'express';
 
 /**
