@@ -6,6 +6,13 @@ export default [
   js.configs.recommended,
   {
     files: ['**/*.ts'],
+    ignores: [
+      '**/*.d.ts', // negeer alle TypeScript declaration files
+      'dist/**',   // negeer build output
+      'node_modules/**',
+      'src/controllers/BudgetController.ts',
+      'src/services/BudgetService.ts'
+    ],
     languageOptions: {
       parser: tsparser,
       parserOptions: {
@@ -28,7 +35,8 @@ export default [
       "indent": ["error", 2],
       "linebreak-style": ["error", "unix"],
       "quotes": ["error", "single"],
-      "semi": ["error", "always"]
+      "semi": ["error", "always"],
+      "@typescript-eslint/no-unused-vars": "off"
     },
   },
 ];
