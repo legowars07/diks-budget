@@ -99,6 +99,67 @@ Tests use mocks for dependencies to ensure each layer is tested in isolation.
 
 ---
 
+## Features
+
+- **View Available Budgets:**  
+  A team member can view all available budgets for their team, including the remaining amount for each budget.  
+  _Endpoint:_  
+  ```
+  GET /api/budgets/:teamId
+  ```
+  _Example response:_
+  ```json
+  [
+    {
+      "id": "2025",
+      "teamId": "rubberduck",
+      "amount": 200,
+      "remaining": 150,
+      "validFrom": "2025-01-01T00:00:00.000Z",
+      "validTo": "2025-12-31T00:00:00.000Z"
+    }
+  ]
+  ```
+
+- **Execute a Transaction:**  
+  A team member can execute a transaction by specifying the amount.  
+  The system will automatically apply the transaction to the optimal available budget (the one that is valid, has enough remaining, and expires soonest).  
+  _Endpoint:_  
+  ```
+  POST /api/transaction
+  ```
+  _Example request:_
+  ```json
+  {
+    "teamId": "rubberduck",
+    "memberId": "a.feather",
+    "amount": 10
+  }
+  ```
+  _Example response:_
+  ```json
+  {
+    "id": "1718200000000",
+    "memberId": "a.feather",
+    "budgetId": "2025",
+    "amount": 10,
+    "date": "2025-06-12T12:00:00.000Z"
+  }
+  ```
+
+---
+
+## Business Rules
+
+- **A team member can only belong to a single team:**  
+  Each team member is associated with exactly one team. The system does not allow a member to be part of multiple teams at the same time.
+
+- **A purchase can only be made if a single budget has enough funds:**  
+  When a team member executes a transaction, the system will only allow the purchase if there is a single available budget that can fully cover the requested amount.  
+  The system will not split a transaction over multiple budgets.
+
+---
+
 ## Project Structure
 
 ```
@@ -139,6 +200,62 @@ pnpm run lint
 ## License
 
 MIT
+
+---
+
+## API Reference
+
+| Endpoint                      | Method | Parameters (location)                | Description                                               | Success Response Example |
+|-------------------------------|--------|--------------------------------------|-----------------------------------------------------------|-------------------------|
+| `/api/budgets/:teamId`        | GET    | `teamId` (URL path)                  | Get all available budgets for a team, including remaining | `200 OK`, JSON array of budgets |
+| `/api/transaction`            | POST   | `teamId`, `memberId`, `amount` (body)| Execute a transaction for a team member; system applies to optimal budget | `200 OK`, JSON transaction object |
+
+### Details
+
+#### `GET /api/budgets/:teamId`
+
+- **Description:** Returns all budgets for the given team, including the remaining amount for each.
+- **URL Params:**  
+  - `teamId` (string, required): The unique identifier of the team.
+- **Success Response:**
+  ```json
+  [
+    {
+      "id": "2025",
+      "teamId": "rubberduck",
+      "amount": 200,
+      "remaining": 150,
+      "validFrom": "2025-01-01T00:00:00.000Z",
+      "validTo": "2025-12-31T00:00:00.000Z"
+    }
+  ]
+  ```
+- **Error Responses:**  
+  - `400 Bad Request` if `teamId` is missing or invalid  
+  - `404 Not Found` if no budgets are found
+
+---
+
+#### `POST /api/transaction`
+
+- **Description:** Executes a transaction for a team member. The system automatically applies the transaction to the optimal available budget.
+- **Body Params:**  
+  - `teamId` (string, required): The team ID  
+  - `memberId` (string, required): The member's ID  
+  - `amount` (number, required): The amount to spend
+- **Success Response:**
+  ```json
+  {
+    "id": "1718200000000",
+    "memberId": "a.feather",
+    "budgetId": "2025",
+    "amount": 10,
+    "date": "2025-06-12T12:00:00.000Z"
+  }
+  ```
+- **Error Responses:**  
+  - `400 Bad Request` if any parameter is missing or invalid  
+  - `404 Not Found` if no suitable budget is available
 
 ---
 
