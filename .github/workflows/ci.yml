@@ -40,12 +40,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Add type module to package.json
-        run: |
-          echo '{ "type": "module" }' > package.json
-
       - name: Run tests
-        run: pnpm test
+        run: pnpm run test
 
       - name: List files in workspace
         run: ls -l
