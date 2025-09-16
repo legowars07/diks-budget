@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
+    "dev": "ts-node src/index.ts",
     "test": "vitest run",
     "lint": "eslint --config eslint.config.js .",
     "build": "tsc"
@@ -14,15 +14,11 @@
   "license": "ISC",
   "packageManager": "pnpm@10.15.0",
   "dependencies": {
-    "express": "^5.1.0",
-    "express-rate-limit": "^8.1.0",
-    "helmet": "^8.1.0"
+    "express": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.35.0",
     "@types/express": "^5.0.3",
-    "@types/express-rate-limit": "^6.0.2",
-    "@types/helmet": "^4.0.0",
     "@types/node": "^24.3.1",
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",

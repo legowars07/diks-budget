@@ -1,5 +1,5 @@
-import type { Team } from './types/Team.ts';
-import type { Budget } from './types/Budget.ts';
+import type { Team } from './types/Team';
+import type { Budget } from './types/Budget';
 
 export const teams: Team[] = [
   {

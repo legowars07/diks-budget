@@ -1,6 +1,6 @@
-import type { Budget } from './types/Budget.ts';
-import { NotFoundError } from './errors.ts';
-import { ERROR_MESSAGES } from './errorMessages.ts';
+import type { Budget } from './types/Budget';
+import { NotFoundError } from './errors';
+import { ERROR_MESSAGES } from './errorMessages';
 
 export class BudgetBusiness {
 /**
