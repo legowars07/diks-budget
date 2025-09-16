@@ -5,7 +5,7 @@ import { BudgetController } from './controllers/BudgetController';
 import { budgetRoutes } from './routes/BudgetRoutes';
 import type { Request, Response, NextFunction } from 'express';
 
-// Maak de benodigde instanties aan
+// Initialize components
 const budgetBusiness = new BudgetBusiness();
 const budgetService = new BudgetService(budgetBusiness);
 const budgetController = new BudgetController(budgetService);
@@ -13,7 +13,7 @@ const budgetController = new BudgetController(budgetService);
 const app = express();
 app.use(express.json());
 
-// Koppel de routes
+// Add budget routes
 app.use('/api', budgetRoutes(budgetController));
 
 // Fallback route
@@ -21,7 +21,7 @@ app.use((req: Request, res: Response) => {
   res.status(404).json({ error: 'Not found' });
 });
 
-// Centrale error handler
+// Central error handler
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   const status = err.status || 500;
   res.status(status).json({

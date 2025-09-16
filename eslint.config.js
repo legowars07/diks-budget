@@ -7,8 +7,8 @@ export default [
   {
     files: ['**/*.ts'],
     ignores: [
-      '**/*.d.ts', // negeer alle TypeScript declaration files
-      'dist/**',   // negeer build output
+      '**/*.d.ts',
+      'dist/**',
       'node_modules/**',
       'src/controllers/BudgetController.ts',
       'src/services/BudgetService.ts'
