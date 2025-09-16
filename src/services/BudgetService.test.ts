@@ -2,6 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { BudgetService } from './BudgetService';
 import { ValidationError, NotFoundError } from '../business/errors';
 import { ERROR_MESSAGES } from '../business/errorMessages';
+import { budgets } from '../business/seed';
 
 describe('BudgetService', () => {
   let business: any;
@@ -13,6 +14,27 @@ describe('BudgetService', () => {
       findOptimalBudget: vi.fn(),
     };
     service = new BudgetService(business);
+
+    // Reset the budgets array to its original state before each test
+    budgets.length = 0;
+    budgets.push(
+      {
+        id: '2025',
+        teamId: 'rubberduck',
+        amount: 200,
+        remaining: 200,
+        validFrom: new Date('2025-01-01'),
+        validTo: new Date('2025-12-31'),
+      },
+      {
+        id: 'summer2025',
+        teamId: 'rubberduck',
+        amount: 100,
+        remaining: 100,
+        validFrom: new Date('2025-06-01'),
+        validTo: new Date('2025-08-31'),
+      }
+    );
   });
 
   describe('getBudgets', () => {
